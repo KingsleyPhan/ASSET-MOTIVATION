@@ -1,0 +1,165 @@
+@charset "UTF-8";
+
+* {
+	/*  	font-family: Arial, Tahoma, Helvetica, sans-serif; */
+	font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L",
+		"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.form-menu .btn {
+	width: 100%;
+	margin-bottom: 3px;
+	background-color: gray;
+	color: white;
+	font-weight: 700;
+	text-align: left;
+}
+
+.table-data-new {
+	width: 100%;
+}
+
+.table-data-new th {
+	padding: 12px;
+	background-color: slategray;
+	text-align: center;
+	color: white;
+	border: 2px solid white;
+}
+
+.table-data-new thead {
+	border: 2px solid black;
+}
+
+.table-data-new td {
+	padding: 4px 2px;
+	background-color: rgb(231, 233, 235);
+	color: rgb(10, 10, 10);
+	border: 2px solid rgb(14, 13, 13);
+	min-height: 19px;
+}
+
+.cel-bor-top-black {
+	border-top: 2px solid black !important;
+	border-bottom: 2px solid black !important;
+}
+
+.cel-bor-left-black {
+	border-left: 2px solid black !important;
+}
+
+.cel-bor-right-black {
+	border-right: 2px solid black !important;
+}
+
+.control-action {
+	background-color: rgb(204, 206, 204);
+	width: 100%;
+	margin-bottom: 5px;
+	float: right;
+}
+
+.btn-action {
+	border-radius: 0px;
+	background-color: rgb(19, 107, 196);
+	color: white;
+	font-weight: 700;
+	padding: 5px 20px;
+	float: right;
+	margin-left: 10px;
+}
+
+.form-search {
+	margin-bottom: 10px;;
+}
+
+.custom-combobox {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+.custom-combobox-toggle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin-left: -1px;
+	padding: 0;
+	/* support: IE7 */
+	*height: 1.7em;
+	*top: 0.1em;
+}
+
+.custom-combobox-input {
+	margin: 0;
+	padding: 0.3em;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default {
+	background: white;
+}
+
+.custom-combobox-input {
+	width: calc(100% - 40px);
+}
+.btn-action-table {
+	background-color: yellow;
+	color: black;
+	border: 1px solid black;
+}
+.input-table-data {
+	padding: 0px 6px;
+    height: 31px;
+    border-radius: 0px;
+}
+.input-table tbody td {
+	padding: 2px; 
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: black;
+    background-color: orange;
+    font-weight: 700;
+    border-radius: 0px;
+}
+
+.nav-pills>li>a, .nav-pills>li>a:focus, .nav-pills>li>a:hover {
+    color: white;
+    background-color: gray;
+    font-weight: 700;
+    border-radius: 0px;
+}
+.glyphicon-calendar
+        {
+            font-size: 15pt;
+        }
+.error {
+	    width: 100%;
+    color: red;
+    display: block;
+    text-align: center;
+}
+.header {
+	height: 35px;
+    line-height: 35px;
+    background-color: #0089ff;
+    color: white;
+    font-size:16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.input-readonly {
+	background-color: #ded9d9a1;
+    font-weight: 700;
+    border: 2px inset;
+}
+.message {
+	padding: 4px; 
+	text-align: center;
+}
+.error {
+	color: red; 
+	font-size: 12px;
+	text-align: left;
+}
