@@ -3,6 +3,8 @@ package com.pts.motivation.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MoveObject {
 	private String id; 
 	private String code;
@@ -45,10 +47,29 @@ public class MoveObject {
 	private String deleteFg;
 	private String cmpnCd;
 	
+	private String nameAsset; 
+	private String modelAsset; 
+	private String seriesAsset;
+	
+	private String dateStart; 
+	private String dateEnd;
+	
+	private MultipartFile fileCongVan;
+	
 	
 	private List<AssetMoveObjectDetail> lstAsset;
 	
 	
+	public MultipartFile getFileCongVan() {
+		return fileCongVan;
+	}
+
+
+	public void setFileCongVan(MultipartFile fileCongVan) {
+		this.fileCongVan = fileCongVan;
+	}
+
+
 	public MoveObject() {
 		lstAsset = new ArrayList<>();
 	}
@@ -251,6 +272,56 @@ public class MoveObject {
 	}
 	public void setLstAsset(List<AssetMoveObjectDetail> lstAsset) {
 		this.lstAsset = lstAsset;
+	}
+
+
+	public String getNameAsset() {
+		return nameAsset;
+	}
+
+
+	public void setNameAsset(String nameAsset) {
+		this.nameAsset = nameAsset;
+	}
+
+
+	public String getModelAsset() {
+		return modelAsset;
+	}
+
+
+	public void setModelAsset(String modelAsset) {
+		this.modelAsset = modelAsset;
+	}
+
+
+	public String getSeriesAsset() {
+		return seriesAsset;
+	}
+
+
+	public void setSeriesAsset(String seriesAsset) {
+		this.seriesAsset = seriesAsset;
+	}
+
+
+	public String getDateStart() {
+		return dateStart;
+	}
+
+
+	public void setDateStart(String dateStart) {
+		this.dateStart = dateStart;
+	}
+
+
+	public String getDateEnd() {
+		return dateEnd;
+	}
+
+
+	public void setDateEnd(String dateEnd) {
+		this.dateEnd = dateEnd;
 	}
 	
 	

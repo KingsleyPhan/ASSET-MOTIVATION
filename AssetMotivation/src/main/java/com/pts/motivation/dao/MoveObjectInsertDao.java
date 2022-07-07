@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.pts.motivation.common.DatabaseConnection;
 import com.pts.motivation.model.DEPARTMENT_S;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
+
 import com.pts.motivation.model.MoveObject;
 
 public class MoveObjectInsertDao {

@@ -25,18 +25,23 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
+.button {
+  background-color: #0963b1;
+    color: white;
+    padding: 9px 8px 4px 8px;
+    /* margin: 8px 0; */
+    border: none;
+    cursor: pointer;
+    width: 120px;
+    font-weight: 700;
+    border-radius: 0px;
+    font-size: 16px;
+    text-align: center;
 }
 
-button:hover {
+.button:hover {
   opacity: 0.8;
+    color: white;
 }
 
 .cancelbtn {
@@ -84,9 +89,14 @@ span.psw {
 </style>
 </head>
 <body>
-
+<div style="background-color: #0680e8; padding: 1px; color: #FFFFFF; width:100%; padding-left: 20px;">
+	<h1 style="font-size: 26px;">HỆ THỐNG QUẢN LÝ ĐIỀU ĐỘNG TÀI SẢN</h1>
+</div>
+<div style="background-color: #0963b1; padding: 1px; color: #FFFFFF; width:100%; padding-left: 20px; height: 35px">
+</div>
 <div class="container" style="width:100%; padding: 5px;">
-    <form action="DangNhap" method="post" style="width:450px; padding: 10px">
+
+    <form action="DangNhap" method="post" style="width:450px; padding: 10px; position: absolute;">
   <div class="imgcontainer">
     <h3>ĐĂNG NHẬP </h3>
   </div>
@@ -98,9 +108,14 @@ span.psw {
     <label for="psw"><b>Mật khẩu</b></label>
     <input type="password" placeholder="Mật khẩu người dùng" name="pwd" required>
     <span class="error">${error}</span>
-    <button type="submit" name="login">ĐĂNG NHẬP</button>
+    <center>
+    <button type="submit" class="btn button" name="login">ĐĂNG NHẬP</button>
+    </center>
   </div>
 </form>
+</div>
+<div style="background-color: #0680e8; padding: 1px; color: #FFFFFF; width:100%; padding-right: 20px; position: absolute; bottom: 0px">
+	<h1 style="font-size: 20px; text-align: right; margin-right: 10px;">Version 1.0</h1>
 </div>
 </body>
 </html>

@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.groupdocs.conversion.internal.a.a.re;
-import com.groupdocs.conversion.internal.c.a.s.ls;
+
 import com.pts.motivation.common.SessionParams;
 import com.pts.motivation.common.UtilCommon;
 import com.pts.motivation.dao.MoveObjectCountDao;
@@ -61,6 +60,20 @@ public class TaoLenhChoMuonTrongHeThongController {
 			if("CM".equals(mode)) {
 				moveObject.setCode("CM");
 			}
+			if("TM".equals(mode)) {
+				moveObject.setCode("TM");
+			}
+			if("BG".equals(mode)) {
+				moveObject.setCode("BG");
+			}
+			if("TTH".equals(mode)) {
+				moveObject.setCode("TTH");
+			}
+			if("TH".equals(mode)) {
+				moveObject.setCode("TH");
+				moveObject.setCmpnOutId("");
+				moveObject.setCmpnOutName("");
+			}
 			if("0".equals(mode)) {
 				moveObject.setCode("");
 				moveObject.setCmpnInId(request.getSession().getAttribute(SessionParams.SESSION_CMPN_CD).toString());
@@ -72,7 +85,7 @@ public class TaoLenhChoMuonTrongHeThongController {
 			moveObject.setStatus("NEW");
 			moveObject.setDeleteFg("0");
 			
-			MoveObjectCountDao countSelect = new MoveObjectCountDao(moveObject.getCmpnOutId());
+			MoveObjectCountDao countSelect = new MoveObjectCountDao(moveObject.getCmpnCd());
 			
 			try {
 				String count = countSelect.excute();
@@ -111,8 +124,8 @@ public class TaoLenhChoMuonTrongHeThongController {
 		if(UtilCommon.isDateInputRight(moveObject.getDateOut()) == false) {
 			message += "Vui lòng nhập ngày xuất theo định dạng dd/mm/yyyy <br>";
 		}
-		if(UtilCommon.isDateInputRight(moveObject.getDateIn()) == false) {
-			message += "Vui lòng nhập ngày nhập theo định dạng dd/mm/yyyy <br>";
+		if(!"".equals(moveObject.getCode()) && !"TTH".equals(moveObject.getCode()) && !"TM".equals(moveObject.getCode()) && !"BG".equals(moveObject.getCode()) && UtilCommon.isDateInputRight(moveObject.getDateIn()) == false) {
+			message += "Vui lòng nhập ngày trả theo định dạng dd/mm/yyyy <br>";
 		}
 		if(UtilCommon.isEmpty(moveObject.getCmpnInId())) {
 			message += "Vui lòng chọn công ty nhập <br>";
@@ -124,10 +137,27 @@ public class TaoLenhChoMuonTrongHeThongController {
 		if(UtilCommon.isEmpty(message)) {
 			
 			moveObject.setUserCreate(request.getSession().getAttribute(SessionParams.SESSION_USER_NAME)+"");
-			moveObject.setDateCreate(UtilCommon.getDateCurrent("dd/MM/yyyy"));
+			moveObject.setDateCreate(UtilCommon.getDateCurrent("dd/MM/yyyy HH:mm:ss"));
 			
 			if(UtilCommon.isEmpty(moveObject.getId())) {
 				try {
+					//-------------------------------
+					MoveObjectCountDao countSelect = new MoveObjectCountDao(moveObject.getCmpnCd());
+					
+					try {
+						String count = countSelect.excute();
+						if(count !=null) {
+							if("0".equals(count)) {
+								moveObject.setNo("1");
+							} else {
+								moveObject.setNo((Integer.parseInt(count) + 1) + "");
+							}
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//-------------------------------
 					moveObject.setId(UtilCommon.getDateCurrent(SessionParams.OBJECT_CD));
 					MoveObjectInsertDao insert = new MoveObjectInsertDao(moveObject);		
 					insert.excute();

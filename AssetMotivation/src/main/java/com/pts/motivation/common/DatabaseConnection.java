@@ -12,7 +12,7 @@ public class DatabaseConnection {
 				//  String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:"+"1433"+";databaseName=AMS_30_04";
 
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-				Connection conn = DriverManager.getConnection(DB_URL, "ASSET", "ám@2020");
+				Connection conn = DriverManager.getConnection(DB_URL, "ASSET", "ams@2020");
 				if (conn != null) {
 				    System.out.println("Database connected successfully!!!!!");
 				    return conn;

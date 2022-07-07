@@ -9,6 +9,7 @@ public class ASSET {
 	private String series;
 	private String deptCd;
 	private String deptName;
+	private String accountCd;
 	
 	public String getStt() {
 		return stt;
@@ -58,6 +59,12 @@ public class ASSET {
 	}
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
+	}
+	public String getAccountCd() {
+		return accountCd;
+	}
+	public void setAccountCd(String accountCd) {
+		this.accountCd = accountCd;
 	}
 	
 	

@@ -40,6 +40,21 @@ public class UtilCommon {
 		return false;
 	}
 	
+	public static String ConvertStringToDateStr(String date, String fmt_src, String fmt_des) throws ParseException
+	{
+//		SimpleDateFormat formatter = new SimpleDateFormat(fmt_src);
+//		Date DateConvert = formatter.parse(date);
+//		SimpleDateFormat formatter2 = new SimpleDateFormat(fmt_des);  
+//	    String strDate = formatter2.format(DateConvert);  
+	    
+	    SimpleDateFormat sdf1 = new SimpleDateFormat(fmt_src);
+	    SimpleDateFormat sdf2 = new SimpleDateFormat(fmt_des);
+	    String ds2 = sdf2.format(sdf1.parse(date));
+	    
+	    return ds2;
+		
+	}
+	
 	public static boolean isDateInputRight(String date) {
 		if(isEmpty(date)) {
 			return false;

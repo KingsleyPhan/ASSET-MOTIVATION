@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.groupdocs.conversion.internal.a.a.re;
-import com.groupdocs.conversion.internal.c.a.s.ls;
+
 import com.pts.motivation.common.SessionParams;
 import com.pts.motivation.common.UtilCommon;
-import com.pts.motivation.dao.InsertLenhDiChuyenNoiBoChiTietDao;
+
 import com.pts.motivation.dao.MoveDetailUpdateDao;
+import com.pts.motivation.dao.MoveObjectAndAssetSelectDao;
 import com.pts.motivation.dao.MoveObjectCountDao;
 import com.pts.motivation.dao.MoveObjectDetailInsertDao;
 import com.pts.motivation.dao.MoveObjectDetailSelectDao;
@@ -26,16 +26,12 @@ import com.pts.motivation.dao.MoveObjectInsertDao;
 import com.pts.motivation.dao.MoveObjectSelectDao;
 import com.pts.motivation.dao.MoveObjectUpdateDao;
 import com.pts.motivation.dao.MoveObjectUpdateDeleteDa;
-import com.pts.motivation.dao.SelectDiChuyenNoiBoChiTietDao;
 import com.pts.motivation.dao.SelectTaiSanDao;
-import com.pts.motivation.dao.UpdateCommentCreateTaoLenhDiChuyenNoiBoDao;
-import com.pts.motivation.dao.UpdateLenhDiChuyenNoiBoChiTietDao;
 import com.pts.motivation.form.TaoLenhDiChuyenNoiBoForm;
 import com.pts.motivation.model.ASSET;
-import com.pts.motivation.model.ASSETDICHUYENNOIBO;
 import com.pts.motivation.model.AssetMoveObjectDetail;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
 import com.pts.motivation.model.MoveObject;
+import com.pts.motivation.model.MoveObjectAndAsset;
 
 @Controller
 @RequestMapping("KhaiBaoChoMuonTrongHeThong")
@@ -108,6 +104,7 @@ public class KhaiBaoChoMuonTrongHeThongController {
 			item.setModel(request.getParameter("model_"+i));
 			item.setSeries(request.getParameter("series_"+i));
 			item.setAssesseries(request.getParameter("assesseries_"+i));
+			item.setAccountCd(request.getParameter("accountCd_"+i));
 			moveObject.getLstAsset().add(item);
 		}
 		
@@ -130,9 +127,36 @@ public class KhaiBaoChoMuonTrongHeThongController {
 						message += "Vui lòng nhập thông tin đầy đủ dòng: "+ row + "</br>";
 				}
 			} else {
+							
 				//Kiem tra co ton tai tai san o don vi hay khong
 				ASSET assetCheck  = new ASSET();
-				assetCheck.setDeptCd(moveObject.getDeptOutId());
+				String thisCompnay = request.getSession().getAttribute(SessionParams.SESSION_CMPN_CD).toString();
+				if("TM".equals(moveObject.getCode()) && moveObject.getCmpnInId().trim().equals(thisCompnay.trim()))  {
+					assetCheck.setDeptCd(moveObject.getDeptOutId());
+				} 
+//				else {
+//					assetCheck.setDeptCd(moveObject.getDeptOutId());
+//				}	
+				
+				if("BG".equals(moveObject.getCode()) && moveObject.getCmpnInId().trim().equals(thisCompnay.trim()))  {
+					assetCheck.setDeptCd(moveObject.getDeptInId());
+				}
+				
+				if("TH".equals(moveObject.getCode()) && moveObject.getCmpnInId().trim().equals(thisCompnay.trim()))  {
+					assetCheck.setDeptCd(moveObject.getDeptInId());
+				}
+				
+				
+				if("TTH".equals(moveObject.getCode()) && moveObject.getCmpnInId().trim().equals(thisCompnay.trim()))  {
+					assetCheck.setDeptCd(moveObject.getDeptInId());
+				}
+				
+				if("M".equals(moveObject.getCode()) && moveObject.getCmpnInId().trim().equals(thisCompnay.trim()))  {
+					assetCheck.setDeptCd(moveObject.getDeptInId());
+				}
+				
+				
+				
 				assetCheck.setRfid(item.getRfid());
 				int row = i+1;
 				SelectTaiSanDao exSelect = new  SelectTaiSanDao(assetCheck);
@@ -143,6 +167,44 @@ public class KhaiBaoChoMuonTrongHeThongController {
 					} else {
 						if(lstCheck.size() != 1) {
 							message += "Không tìm thấy nhiều hơn 1 tài sản tại dòng: " + row + "</br>";
+						} else {
+							//
+							if(lstCheck.size() == 1) {
+								if("TM".equals(moveObject.getCode()) && moveObject.getCmpnOutId().trim().equals(thisCompnay.trim())) {
+									MoveObject moveObjectItem = new MoveObject();
+									AssetMoveObjectDetail assetItem = new AssetMoveObjectDetail();
+									moveObjectItem.setCmpnCd(moveObject.getCmpnInId());
+									moveObjectItem.setCode("CM");
+									assetItem.setRfid(lstCheck.get(0).getRfid());
+									assetItem.setModel(lstCheck.get(0).getModel());
+									assetItem.setSeries(lstCheck.get(0).getSeries());
+									
+									MoveObjectAndAssetSelectDao selectAll = new MoveObjectAndAssetSelectDao(moveObjectItem, assetItem);
+									
+									List<MoveObjectAndAsset> lst = selectAll.excute(); 
+									if(lst.size() != 1) {
+										message += "Tài sản không phải là tài sản MƯỢN tại dòng: " + row + "</br>";
+									}
+									
+								}
+								if("TTH".equals(moveObject.getCode()) && moveObject.getCmpnOutId().trim().equals(thisCompnay.trim())) {
+									MoveObject moveObjectItem = new MoveObject();
+									AssetMoveObjectDetail assetItem = new AssetMoveObjectDetail();
+									moveObjectItem.setCmpnCd(moveObject.getCmpnInId());
+									moveObjectItem.setCode("TH");
+									assetItem.setRfid(lstCheck.get(0).getRfid());
+									assetItem.setModel(lstCheck.get(0).getModel());
+									assetItem.setSeries(lstCheck.get(0).getSeries());
+									
+									MoveObjectAndAssetSelectDao selectAll = new MoveObjectAndAssetSelectDao(moveObjectItem, assetItem);
+									
+									List<MoveObjectAndAsset> lst = selectAll.excute(); 
+									if(lst.size() != 1) {
+										message += "Tài sản không phải là tài sản THUÊ tại dòng: " + row + "</br>";
+									}
+									
+								}
+							}
 						}
 					}
 				} catch (SQLException e) {

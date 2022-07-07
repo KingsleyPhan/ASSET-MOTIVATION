@@ -24,4 +24,9 @@ public class MenuController {
 	public String ChoMuonTrongHeThong(HttpServletRequest request) {
 		return "redirect:/ChoMuonTrongHeThong";
 	}
+	
+	@RequestMapping(params="QuanLyKeToan", method = RequestMethod.POST)
+	public String QuanLyKeToan(HttpServletRequest request) {
+		return "redirect:/QuanLyKeToan";
+	}
 }

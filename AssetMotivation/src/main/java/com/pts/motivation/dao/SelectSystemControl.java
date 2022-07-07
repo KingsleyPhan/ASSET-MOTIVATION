@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pts.motivation.common.DatabaseConnection;
-import com.pts.motivation.model.COMPANY;
 import com.pts.motivation.model.DEPARTMENT_S;
 
 public class SelectSystemControl {

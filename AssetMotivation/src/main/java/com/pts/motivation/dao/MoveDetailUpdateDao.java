@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pts.motivation.common.DatabaseConnection;
-import com.pts.motivation.model.ASSETDICHUYENNOIBO;
+
 import com.pts.motivation.model.AssetMoveObjectDetail;
 import com.pts.motivation.model.DEPARTMENT_S;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
+
 
 public class MoveDetailUpdateDao {
 	private AssetMoveObjectDetail asset; 
@@ -32,8 +32,8 @@ public class MoveDetailUpdateDao {
 			pstm.setString(5,this.asset.getModel());
 			pstm.setString(6,this.asset.getSeries());
 			pstm.setString(7,this.asset.getAssesseries());
-			
-			pstm.setString(8,this.asset.getIdMove());
+			pstm.setString(8,this.asset.getAccountCd());
+			pstm.setString(9,this.asset.getIdMove());
 			
 			pstm.executeUpdate();
 			return true;
@@ -49,6 +49,7 @@ public class MoveDetailUpdateDao {
 			sql.append("		,ASSET_MODEL = ?  ");
 			sql.append("		,ASSET_SERIES = ?  ");
 			sql.append("		,ASSESSERIES = ?  ");
+			sql.append("		,ACCOUNTCD = ?  ");
 			
 			sql.append("WHERE  ");
 			sql.append(" ID = ?  ");

@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pts.motivation.common.DatabaseConnection;
-import com.pts.motivation.model.ASSETDICHUYENNOIBO;
+
 import com.pts.motivation.model.AssetMoveObjectDetail;
 import com.pts.motivation.model.DEPARTMENT_S;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
+
 
 public class MoveObjectDetailInsertDao {
 	private AssetMoveObjectDetail asset; 
@@ -33,6 +33,8 @@ public class MoveObjectDetailInsertDao {
 			pstm.setString(7,this.asset.getModel());
 			pstm.setString(8,"NEW");
 			pstm.setString(9,this.asset.getAssesseries());
+			pstm.setString(10,this.asset.getStatus2());
+			pstm.setString(11,this.asset.getAccountCd());
 			
 
 			
@@ -54,8 +56,12 @@ public class MoveObjectDetailInsertDao {
 			sql.append("		,ASSET_MODEL ");
 			sql.append("		,STATUS ");
 			sql.append("		,ASSESSERIES ");
+			sql.append("		,STATUS_2 ");
+			sql.append("		,ACCOUNTCD ");
 			sql.append(") VALUES( ");
 			sql.append("		? ");
+			sql.append("		,? ");
+			sql.append("		,? ");
 			sql.append("		,? ");
 			sql.append("		,? ");
 			sql.append("		,? ");

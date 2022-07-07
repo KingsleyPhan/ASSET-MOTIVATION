@@ -15,12 +15,8 @@ import com.pts.motivation.common.GetMap;
 import com.pts.motivation.common.UtilCommon;
 import com.pts.motivation.dao.MoveObjectDetailSelectDao;
 import com.pts.motivation.dao.MoveObjectSelectDao;
-import com.pts.motivation.dao.SelectDepartmentDao;
-import com.pts.motivation.dao.SelectDiChuyenNoiBoChiTietDao;
-import com.pts.motivation.dao.SelectDiChuyenNoiBoDao;
 import com.pts.motivation.form.TaoLenhDiChuyenNoiBoForm;
 import com.pts.motivation.model.DEPARTMENT_S;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
 import com.pts.motivation.model.MoveObject;
 
 @Controller
@@ -41,6 +37,7 @@ public class XemLenhExport {
 				List<MoveObject> lstMove = moveSelect.excute();
 				if(lstMove.size()==1) {
 					model.addAttribute("moveObject", lstMove.get(0));
+					moveOb =  lstMove.get(0);
 				}
 				
 			} catch (SQLException e) {
@@ -50,6 +47,33 @@ public class XemLenhExport {
 			
 		
 			
+		}
+		
+		String date  = UtilCommon.getDateCurrent("dd/MM/yyyy"); 
+		
+		String dateGet  = moveOb.getDateCreate().substring(0, 10);
+		System.out.println("date: yeyeye: '" + dateGet+"'");
+		
+		String[] arrayDay = dateGet.split("/"); 
+		String DatString = "Ngày " + arrayDay[0] +  " tháng " + arrayDay[1] + " năm " + arrayDay[2];
+		mv.addObject("dateString", DatString);
+		
+		if(moveOb.getUserAccount()!= null && moveOb.getUserAccount().trim().length() > 0) {
+			model.addAttribute("isAccount", "true");
+		} else {
+			model.addAttribute("isAccount", "false");
+		}
+		
+		if(moveOb.getUserManager()!= null && moveOb.getUserManager().trim().length() > 0) {
+			model.addAttribute("isManager", "true");
+		} else {
+			model.addAttribute("isManager", "false");
+		}
+		
+		if(moveOb.getUserCreate()!= null &&  moveOb.getUserCreate().trim().length() > 0) {
+			model.addAttribute("isCreate", "true");
+		} else {
+			model.addAttribute("isCreate", "false");
 		}
 		
 		

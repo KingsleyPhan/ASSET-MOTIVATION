@@ -81,9 +81,12 @@ p {
 	font-weight: 700;
 	margin-top: 40px;
 }
+.table_sign tr th, .table_sign tr td {
+	font-size: 11px;
+}
 </style>
 </head>
-<body>
+<body style="margin: 0px">
 	<table style="width: 100%">
 		<tr>
 			<th style="width: 50%"><p>TỔNG CÔNG TY CỔ PHẦN MAY VIỆT TIẾN</p>
@@ -153,6 +156,7 @@ p {
 			<th>STT</th>
 			<th>TÊN THIẾT BỊ - KÍ HIỆU</th>
 			<th>SỐ MÁY</th>
+			<th>MÃ KẾ TOÁN</th>
 			<th>NGUYÊN GIÁ</th>
 			<th>PHỤ TÙNG KÈM THEO</th>
 		</tr>
@@ -161,14 +165,16 @@ p {
 		<tr>
 			
 			<td style="width:40px; text-align: right;"><%=++stt%></td>
-			<td><span>${elm.name}</span>-<span>${elm.model}</span></td>
-			<td>${elm.series}</td>
-			<td style=""></td>
+			<td><span>${elm.name}</span></td>
+			<td style="text-align: center">${elm.series}</td>
+			<td style="text-align: center">${elm.accountCd}</td>
+			<td style="text-align: right">${elm.price}</td>
 			<td>${elm.assesseries}</td>
 		</tr>
 		</c:forEach>
 	</table>
 	<p style="margin-top: 10px;"><b>NHẬN XÉT CỦA BAN GIAO NHẬN:</b> ${moveObject.noteCreate}</p>
+	<p style="width: 100%; text-align: right">${dateString}</p>
 	<table class="table_sign" style="width: 100%">
 		<tr>
 			<th>TỔNG GIÁM ĐỐC</th>
@@ -177,13 +183,6 @@ p {
 			<th>ĐD BÊN GIAO</th>
 			<th>ĐD BÊN NHẬN</th>
 		</tr>
-		<tr class="auto_sign">
-			<td>(Đã ký)</td>
-			<td>(Đã ký)</td>
-			<td>(Đã ký)</td>
-			<td>(Đã ký)</td>
-			<td>(Đã ký)</td>
-		</tr>
 		<tr class="check_sign">
 			<td>Nguyễn Băn A</td>
 			<td>Nguyễn Băn A</td>
@@ -191,11 +190,55 @@ p {
 			<td>Nguyễn Băn A</td>
 			<td>Nguyễn Băn A</td>
 		</tr>
+		<tr class="auto_sign">
+				<td style="color: white">(Đã ký)</td>
+			 <c:if test = "${isAccount == 'true'}">
+         		<td>(Đã ký)</td>
+         	</c:if>
+         	 <c:if test = "${isAccount == 'false'}">
+         		<td style="color: white">(Đã ký)</td>
+         	</c:if>
+         	 <c:if test = "${isManager == 'true'}">
+         		<td>(Đã ký)</td>
+         	</c:if>
+         	<c:if test = "${isManager == 'false'}">
+         		<td style="color: white">(Đã ký)</td>
+         	</c:if>
+         	 <c:if test = "${isCreate == 'true'}">
+         		<td>(Đã ký)</td>
+         	</c:if>
+         	<c:if test = "${isCreate == 'false'}">
+         		<td style="color: white">(Đã ký)</td>
+         	</c:if>
+         	
+         	
+         	
+
+   			<td style="color: white">(Đã ký)</td>
+
+		</tr>
+
 		<tr class="name_sign">			
 			<td></td>
-			<td>${moveObject.userAccount}</td>
-			<td>${moveObject.userManager}</td>
-			<td>${moveObject.userStock}</td>
+			 <c:if test = "${isAccount == 'true'}">
+         		<td>${moveObject.userAccount}</td>
+         	</c:if>
+         	 <c:if test = "${isAccount == 'false'}">
+         		<td style="color: white">${moveObject.userAccount}</td>
+         	</c:if>
+         	 <c:if test = "${isManager == 'true'}">
+         		<td>${moveObject.userManager}</td>
+         	</c:if>
+         	<c:if test = "${isManager == 'false'}">
+         		<td style="color: white">${moveObject.userManager}</td>
+         	</c:if>
+         	 <c:if test = "${isCreate == 'true'}">
+         		<td>${moveObject.userCreate}</td>
+         	</c:if>
+         	<c:if test = "${isCreate == 'false'}">
+         		<td style="color: white">${moveObject.userCreate}</td>
+         	</c:if>
+		
 			<td></td>
 		</tr>
 	</table>

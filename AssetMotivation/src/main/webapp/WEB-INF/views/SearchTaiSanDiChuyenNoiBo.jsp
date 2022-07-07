@@ -19,6 +19,9 @@
 .glyphicon-calendar {
 	font-size: 15pt;
 }
+.col-lg-4 {
+	
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -34,7 +37,7 @@
         
         }
 
-        function OnOK (rfid, name, model, series) {
+        function OnOK (rfid, name, model, series, account) {
 //             var forename = document.getElementById ("forename");
 //             var surname = document.getElementById ("surname");
 
@@ -58,8 +61,9 @@
 			opener.document.getElementById('rfid_'+i).value = rfid;
 			opener.document.getElementById('model_'+i).value = model;
 			opener.document.getElementById('series_'+i).value = series;
-			opener.document.getElementById('name_'+i).value = name;
-			
+			opener.document.getElementById('name_'+i).value = name;  
+			opener.document.getElementById('assesseries_'+i).value = '';
+			opener.document.getElementById('accountCd_'+i).value = account;
             window.close ();
         }
 
@@ -93,25 +97,25 @@
 				<form:form action="SearchTaiSanDiChuyenNoiBo?dept=${deptCd}" method="POST" modelAttribute="TaiSanDiChuyenNoiBoForm">
 				<div class="form-search">
 					<div class="row">
-						<div class="col-lg-4">
+						<div class="col-lg-4" style="margin-top: 10px;">
 							<label>TÊN TÀI </label><br>
 							<div class="ui-widget">
 								<form:select path="name" items="${lstName}"></form:select>
 							</div>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-4" style="margin-top: 10px;">
 							<label>RFFID</label><br>
 							<div class="ui-widget">
 								<form:select path="rfid" items="${lstRfid}"></form:select>
 							</div>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-4" style="margin-top: 10px;">
 							<label>MODEL</label><br>
 							<div class="ui-widget">
 								<form:select path="model" items="${lstModel}"></form:select>
 							</div>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-4" style="margin-top: 10px;">
 							<label>SERIES</label><br>
 							<div class="ui-widget">
 								<form:select path="series" items="${lstSeries}"></form:select>
@@ -122,8 +126,8 @@
 
 
 				<div class="control-action">
-					<button class="btn btn-action" type="button" onclick="window.click()" name="back">QUAY LẠI</button>
-					<button class="btn btn-action" type="submit" name="TaoLenh">TẠO LỆNH</button>
+					<button class="btn btn-action" type="button" onclick="window.close()" name="back">ĐÓNG LẠI</button>
+<!-- 					<button class="btn btn-action" type="submit" name="TaoLenh">TẠO LỆNH</button> -->
 					<button class="btn btn-action" type="submit" name="search">TÌM KIẾM</button>
 
 				</div>
@@ -147,6 +151,7 @@
 											<th class="cel-bor-top-black">TÊN TÀI SẢN</th>
 											<th class="cel-bor-top-black">MODEL</th>
 											<th class="cel-bor-top-black">SERIES</th>
+											<th class="cel-bor-top-black">KẾ TOÁN</th>
 											<th class="cel-bor-top-black" style="width:100px; text-align: center;">CHN</th>
 											
 										</tr>
@@ -162,8 +167,9 @@
 											<td>${elm.getName()}</td>
 											<td>${elm.getModel()}</td>
 											<td>${elm.getSeries()}</td>
+											<td>${elm.getAccountCd()}</td>
 											<td style="text-align: center;">
-												<button type="button" class="btn btn-action" onclick="return OnOK('${elm.getRfid()}','${elm.getName()}','${elm.getModel()}','${elm.getSeries()}')">CHỌN</button>
+												<button type="button" class="btn btn-action" onclick="return OnOK('${elm.getRfid()}','${elm.getName()}','${elm.getModel()}','${elm.getSeries()}','${elm.getAccountCd()}')">CHỌN</button>
 											</td>
 										</tr>
 										</c:forEach>

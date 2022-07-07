@@ -17,6 +17,17 @@
   <link type="text/css" href="resources/css/main.css" rel="stylesheet" />
   
   <style>
+  .tableCongVang {
+  	margin-bottom: 5px;
+  	border-radius: 5px;
+  }
+   .tableCongVang td{
+  		padding: 3px;
+  }
+  .tableCongVang tr, .tableCongVang td{
+  border: 1px solid;
+  
+  }
         .form-group label {
             font-weight: 700;
             text-transform: uppercase;
@@ -201,6 +212,25 @@
                <form:input  path="commentManager" required="true" type="text" class="form-control"/>
             </div>
         </div>
+        
+        
+       <!--  <div class="tittle_part">CÔNG VĂN ĐIỀU ĐỘNG</div>
+        <div class="col-sm-12">
+            <div class="form-group">
+             <label for="usr">BỔ SUNG CÔNG VĂN ĐIỀU ĐỘNG</label>
+             <input type="file" name="congvandieudong" class="form-control" style="border:none"/>
+            </div>
+            
+            <table class="tableCongVang" style="width: 100%">
+            	<tbody>
+            		<tr>
+            			<td>áafsaf</td>
+            			<td style="width: 100px; text-align: center;"> <button class="btn" type="submit" style="border: 1px solid; background-color: green; width: 80px; color: white" name="btnView">XEM</button></td>
+            			<td style="width: 100px; text-align: center;"> <button class="btn" type="submit" style="border: 1px solid; background-color: green; width: 80px; color: white" name="btnDelete">XÓA</button></td>
+            		</tr>
+            	</tbody>
+            </table>
+        </div> -->
 
     </div>
     <form:input path="status" style="display:none" type="text" class="form-control"/>
@@ -209,9 +239,11 @@
     
     <div class="text-right" style="width: 100%; display: inline-block; background-color: rgb(148, 150, 151);">
      <a class="btn btnAction" href="ChoMuonTrongHeThong"  type="button" name="back">TRỞ VỀ</a>
+      <button class="btn btnAction"  type="submit" name="export">XUẤT LỆNH</button>
         <button class="btn btnAction" type="submit" name="disApprove">KHÔNG DUYỆT</button>
         <button class="btn btnAction" type="submit" name="approve">DUYỆT</button>
-       
+<!--          <button class="btn btnAction" type="submit" name="uploadCongVan">UP CÔNG VĂN</button>
+ -->       
     </div>
 <!--     <span style="font-weight: 700; float:left;line-height: 35px;">Số lượng dòng: </span> -->
 <%--     <input type="number" class="form-control" style="width:80px; float:left; margin-left: 10px; " name="numberRow" value="${numberRow}" min="${numberRow}" max="100"> --%>
@@ -225,6 +257,7 @@
                     <th class="cel-bor-top-black">MÃ RFID</th>
                     <th class="cel-bor-top-black">MODEL</th>
                     <th class="cel-bor-top-black">SERIES</th>
+                     <th class="cel-bor-top-black">KỂ TOÁN</th>
                     <th class="cel-bor-top-black">TÊN TÀI SẢN</th>
                     <th class="cel-bor-top-black">PHỤ TÙNG KÈM THEO</th>
                 </tr>
@@ -246,6 +279,9 @@
                     </td>
                     <td>
                     	 <input type="text" readonly="true" name="series_<%=stt%>" value="${elm.getSeries() }" id="series_<%=stt%>" value="${elm.getSeries() }" class="form-control input-table-data">
+                    </td>
+                    <td>
+                    	 <input type="text" readonly="true" name="accountCd_<%=stt%>" value="${elm.getAccountCd() }" id="accountCd_<%=stt%>" value="${elm.getAccountCd() }" class="form-control input-table-data">
                     </td>
                     <td>
                     	 <input type="text" readonly="true" name="name_<%=stt%>" id="name_<%=stt%>" value="${elm.getName() }" class="form-control input-table-data">

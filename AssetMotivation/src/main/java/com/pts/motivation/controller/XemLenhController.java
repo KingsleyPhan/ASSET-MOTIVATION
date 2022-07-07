@@ -28,14 +28,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.groupdocs.conversion.internal.a.a.re;
-import com.groupdocs.conversion.internal.c.a.s.ls;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.layout.font.FontProvider;
 import com.pts.motivation.common.SessionParams;
 import com.pts.motivation.common.UtilCommon;
-import com.pts.motivation.dao.InsertLenhDiChuyenNoiBoChiTietDao;
 import com.pts.motivation.dao.MoveDetailUpdateDao;
 import com.pts.motivation.dao.MoveObjectCountDao;
 import com.pts.motivation.dao.MoveObjectDetailInsertDao;
@@ -44,16 +41,10 @@ import com.pts.motivation.dao.MoveObjectInsertDao;
 import com.pts.motivation.dao.MoveObjectSelectDao;
 import com.pts.motivation.dao.MoveObjectUpdateDao;
 import com.pts.motivation.dao.MoveObjectUpdateDeleteDa;
-import com.pts.motivation.dao.SelectDiChuyenNoiBoChiTietDao;
-import com.pts.motivation.dao.SelectDiChuyenNoiBoDao;
 import com.pts.motivation.dao.SelectTaiSanDao;
-import com.pts.motivation.dao.UpdateCommentCreateTaoLenhDiChuyenNoiBoDao;
-import com.pts.motivation.dao.UpdateLenhDiChuyenNoiBoChiTietDao;
 import com.pts.motivation.form.TaoLenhDiChuyenNoiBoForm;
 import com.pts.motivation.model.ASSET;
-import com.pts.motivation.model.ASSETDICHUYENNOIBO;
 import com.pts.motivation.model.AssetMoveObjectDetail;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
 import com.pts.motivation.model.MoveObject;
 
 @Controller
@@ -152,6 +143,8 @@ public class XemLenhController {
 		try {
 			  
 			  HttpGet httpGet = new HttpGet("http://asset.viettien.com.vn:8081/Motivation/XemLenhExport?lenh="+ moveObject.getId());
+			 // HttpGet httpGet = new HttpGet("http://localhost:8080/Motivation/XemLenhExport?lenh="+ moveObject.getId());
+
 			  HttpClient client = HttpClients.createDefault();
 			  HttpResponse httpResponse = client.execute(httpGet);
 			   
@@ -190,6 +183,8 @@ public class XemLenhController {
 		      response.setContentLength(data.length);
 		      InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(data));
 		      FileCopyUtils.copy(inputStream, response.getOutputStream());
+		      response.getOutputStream().flush();
+		      response.getOutputStream().close();
 		    } catch (Exception exs) {
 		      exs.printStackTrace();
 		    }

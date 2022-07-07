@@ -78,6 +78,36 @@ public class ChoMuonTrongHeThongController {
 		return mv;
 	} 
 	
+	@RequestMapping(params="TraTaiSanMuon" , method = RequestMethod.POST)
+	public ModelAndView TraTaiSan(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("redirect:/TaoLenhChoMuonTrongHeThong?mode=TM");
+		return mv;
+	} 
+	@RequestMapping(params="ThueTaiSan" , method = RequestMethod.POST)
+	public ModelAndView ThueTaiSan(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("redirect:/TaoLenhChoMuonTrongHeThong?mode=TH");
+		return mv;
+	} 
+	@RequestMapping(params="TraThueTaiSan" , method = RequestMethod.POST)
+	public ModelAndView TraThueTaiSan(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("redirect:/TaoLenhChoMuonTrongHeThong?mode=TTH");
+		return mv;
+	} 
+	
+	@RequestMapping(params="BanGiaoTaiSan" , method = RequestMethod.POST)
+	public ModelAndView BanGiaoTaiSan(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("redirect:/TaoLenhChoMuonTrongHeThong?mode=BG");
+		return mv;
+	} 
+	
 	@RequestMapping(params="edit" , method = RequestMethod.POST)
 	public ModelAndView Edit(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
@@ -119,7 +149,7 @@ public class ChoMuonTrongHeThongController {
 	public ModelAndView view(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		
-		mv.setViewName("redirect:/XemLenh?moveId="+ request.getParameter("id"));
+		mv.setViewName("redirect:/XemLenh?moveId="+ request.getParameter("id") +"&pageBack="+request.getParameter("backurl"));
 		return mv;
 	} 
 }

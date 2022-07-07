@@ -5,15 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.pts.motivation.common.DatabaseConnection;
 import com.pts.motivation.common.UtilCommon;
-import com.pts.motivation.model.ASSETDICHUYENNOIBO;
-import com.pts.motivation.model.COMPANY;
+
 import com.pts.motivation.model.DEPARTMENT_S;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
+
 import com.pts.motivation.model.MoveObject;
 import com.pts.motivation.model.AssetMoveObjectDetail;
 
@@ -29,9 +29,10 @@ public class MoveObjectDetailSelectDao {
 		
 		public MoveObject excute() throws SQLException {
 			DatabaseConnection conn = new DatabaseConnection();
+			System.out.println(getSQL());
 			PreparedStatement  pstm = conn.getConnection().prepareStatement(getSQL()); 
 			ResultSet rs = pstm.executeQuery();
-			
+		
 			MoveObject LENH = new MoveObject();
 			while(rs.next()) {
 				
@@ -45,29 +46,51 @@ public class MoveObjectDetailSelectDao {
 				item.setModel(rs.getString("ASSET_MODEL"));
 				item.setStatusMove(rs.getString("STATUS"));
 				item.setAssesseries(rs.getString("ASSESSERIES"));
+				item.setStatus2(rs.getString("STATUS_2"));
+				item.setStatus(rs.getString("STATUS"));
+				item.setAccountCd(rs.getString("ACCOUNTCD"));
+				item.setPrice(priceWithDecimal(rs.getString("ASSET_PRICE")));
 				
+				if(item.getName().trim().length() > 0 && item.getSeries().trim().length()>0 && item.getModel().trim().length() > 0) {
+					LENH.getLstAsset().add(item);
+				}
 				
-				LENH.getLstAsset().add(item);
 			}
 			
 			return LENH;
 		}
 		
+		public String priceWithDecimal (String price) {
+			try {
+				Double xxx = Double.parseDouble(price);
+			    DecimalFormat formatter = new DecimalFormat("###,###,###");
+			    return formatter.format(xxx);
+			} catch (Exception e) {
+				// TODO: handle exception
+				return "0";
+			}
+			
+		}
+		
 		public String getSQL() {
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT ");
-			sql.append("    ID , ");
-			sql.append("    COUPON_CD , ");
-			sql.append("    ASSET_CD , ");
-			sql.append("    ASSET_RFID , ");
-			sql.append("    ASSET_NAME, ");
-			sql.append("    ASSET_MODEL , ");
-			sql.append("    ASSET_SERIES, ");
-			sql.append("    STATUS, ");
-			sql.append("    ASSESSERIES ");
+			sql.append("    DCCT.ID , ");
+			sql.append("    DCCT.COUPON_CD , ");
+			sql.append("    DCCT.ASSET_CD , ");
+			sql.append("    DCCT.ASSET_RFID , ");
+			sql.append("    DCCT.ASSET_NAME, ");
+			sql.append("    DCCT.ASSET_MODEL , ");
+			sql.append("    DCCT.ASSET_SERIES, ");
+			sql.append("    DCCT.STATUS, ");
+			sql.append("    DCCT.ASSESSERIES, ");
+			sql.append("    DCCT.STATUS_2, ");
+			sql.append("    DCCT.ACCOUNTCD, ");
+			sql.append("    ISNULL(AG.ASSET_PRICE,0) as  ASSET_PRICE");
 			
 			
 			sql.append(" FROM MOVE_OBJECT_DETAIL DCCT ");
+			sql.append(" LEFT JOIN ASSETS_GENERAL AG ON AG.ASSET_RFID =DCCT.ASSET_RFID  ");
 			sql.append(" WHERE 1=1 ");
 			
 			
@@ -76,6 +99,17 @@ public class MoveObjectDetailSelectDao {
 				if(UtilCommon.isNotEmpty(this.lenh.getId())) {
 					sql.append(" AND DCCT.COUPON_CD = ").append("'"+this.lenh.getId()+ "'");
 				}
+				if(UtilCommon.isNotEmpty(this.lenh.getNameAsset())) {
+					sql.append(" AND DCCT.ASSET_NAME = ").append("'"+this.lenh.getId().trim()+ "'");
+				}
+				if(UtilCommon.isNotEmpty(this.lenh.getModelAsset())) {
+					sql.append(" AND DCCT.ASSET_MODEL = ").append("'"+this.lenh.getModelAsset().trim()+ "'");
+				}
+				if(UtilCommon.isNotEmpty(this.lenh.getSeriesAsset())) {
+					sql.append(" AND DCCT.ASSET_SERIES = ").append("'"+this.lenh.getSeriesAsset().trim()+ "'");
+				}
+				
+				
 			}
 			return sql.toString();
 		}

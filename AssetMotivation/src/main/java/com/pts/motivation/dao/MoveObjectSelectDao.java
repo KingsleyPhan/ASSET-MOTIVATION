@@ -146,9 +146,16 @@ public class MoveObjectSelectDao {
 			if(UtilCommon.isEmpty(moveObject.getDeptOutId()) == false) {
 				sql.append(" AND  DEPT_OUT_ID =  ").append("'"+moveObject.getDeptOutId()+"'");
 			}
+			if(UtilCommon.isNotEmpty(this.moveObject.getDateStart())) {
+				sql.append(" AND convert(nvarchar, CONVERT(DATETIME, DATE_CREATE, 103), 112) >= ").append("'"+this.moveObject.getDateStart().trim()+ "'");
+			}
+			
+			if(UtilCommon.isNotEmpty(this.moveObject.getDateEnd())) {
+				sql.append(" AND convert(nvarchar, CONVERT(DATETIME, DATE_CREATE, 103), 112) <= ").append("'"+this.moveObject.getDateEnd().trim()+ "'");
+			}
 		}
 		
-		sql.append(" ORDER BY  NO ");
+		sql.append(" ORDER BY CAST(NO AS int)   ");
 		System.out.println(sql.toString());
 		return sql.toString();
 	}

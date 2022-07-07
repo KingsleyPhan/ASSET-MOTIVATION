@@ -208,7 +208,7 @@
     <span style="font-weight: 700; float:left;line-height: 35px;">Số lượng dòng: </span>
     <input type="number" class="form-control" style="width:80px; float:left; margin-left: 10px; " name="numberRow" value="${numberRow}" min="${numberRow}" max="100">
     <button class="btn btn-success" type="submit" name="addRow" style="margin-left: 10px; background-color: red; border-radius: 0px;">THÊM DÒNG</button>
-    <button class="btn btn-success" style="margin-left: 10px; background-color:green; border-radius: 0px;">KIỂM TRA</button>
+<!--     <button class="btn btn-success" style="margin-left: 10px; background-color:green; border-radius: 0px;">KIỂM TRA</button> -->
     
         <table class="table-data-new input-table" style="margin-top: 10px;">
             <thead>
@@ -217,9 +217,13 @@
                     <th class="cel-bor-top-black">MÃ RFID</th>
                     <th class="cel-bor-top-black">MODEL</th>
                     <th class="cel-bor-top-black">SERIES</th>
+                    <th class="cel-bor-top-black">KẾ TOÁN</th>
                     <th class="cel-bor-top-black">TÊN TÀI SẢN</th>
                     <th class="cel-bor-top-black">PHỤ TÙNG KÈM THEO</th>
+                    <c:if test="${moveObject.userCreate != 'SYSTEM' }">
                     <th class="cel-bor-top-black cel-bor-right-black" style="width:210px;">THAO TÁC</th>
+                    	
+                    </c:if>
                 </tr>
             </thead>
             <tbody>
@@ -232,24 +236,32 @@
                     </td>
                     <td>
                     	 <input type="text" style="display:none;" name="idMove_<%=stt%>" value="${elm.getIdMove() }" class="form-control input-table-data">
-                    	 <input type="text" name="rfid_<%=stt%>" value="${elm.getRfid() }" id="rfid_<%=stt%>" value="${elm.getRfid() }" class="form-control input-table-data">
+                    	 <input readonly="${moveObject.userCreate != 'SYSTEM' ? 'true' : 'false'}" type="text" name="rfid_<%=stt%>" value="${elm.getRfid() }" id="rfid_<%=stt%>" value="${elm.getRfid() }" class="form-control input-table-data">
                     </td>
                     <td>
-                    	 <input type="text" name="model_<%=stt%>" value="${elm.getModel() }" id="model_<%=stt%>" value="${elm.getModel() }" class="form-control input-table-data">
+                    	 <input readonly="${moveObject.userCreate != 'SYSTEM' ? 'true' : 'false'}" type="text" name="model_<%=stt%>" value="${elm.getModel() }" id="model_<%=stt%>" value="${elm.getModel() }" class="form-control input-table-data">
                     </td>
                     <td>
-                    	 <input type="text" name="series_<%=stt%>" value="${elm.getSeries() }" id="series_<%=stt%>" value="${elm.getSeries() }" class="form-control input-table-data">
+                    	 <input readonly="${moveObject.userCreate != 'SYSTEM' ? 'true' : 'false'}" type="text" name="series_<%=stt%>" value="${elm.getSeries() }" id="series_<%=stt%>" value="${elm.getSeries() }" class="form-control input-table-data">
                     </td>
                     <td>
-                    	 <input type="text" name="name_<%=stt%>" id="name_<%=stt%>" value="${elm.getName() }" class="form-control input-table-data">
+                    	 <input readonly="${moveObject.userCreate != 'SYSTEM' ? 'true' : 'false'}" type="text" name="accountCd_<%=stt%>" value="${elm.getAccountCd() }" id="accountCd_<%=stt%>" value="${elm.getAccountCd() }" class="form-control input-table-data">
+                    	
                     </td>
                     <td>
-                    	 <input type="text" name="assesseries_<%=stt%>" id="assesseries_<%=stt%>" value="${elm.getAssesseries() }" class="form-control input-table-data">
+                    	 <input readonly="${moveObject.userCreate != 'SYSTEM' ? 'true' : 'false'}" type="text" name="name_<%=stt%>" id="name_<%=stt%>" value="${elm.getName() }" class="form-control input-table-data">
                     </td>
                     <td>
+                    	 <input readonly="${moveObject.userCreate != 'SYSTEM' ? 'true' : 'false'}" type="text" name="assesseries_<%=stt%>" id="assesseries_<%=stt%>" value="${elm.getAssesseries() }" class="form-control input-table-data">
+                    </td>
+                    <c:if test="${moveObject.userCreate != 'SYSTEM' }">
+                    <td>
+                    	
                     	<button type="button" class="btn btn-action btn-action-table" onclick="return clearX('<%=stt%>')">XÓA</button>
+                    	
                     	<button type="button" onclick="return ShowModal('rfid_<%=stt%>','name_<%=stt%>','model_<%=stt%>','series_<%=stt%>', '<%=stt%>')" class="btn btn-action btn-action-table" >TÌM KIẾM</button>         			
                     </td>
+                    </c:if>
                 </tr>
                 </c:forEach>
                 </c:if>

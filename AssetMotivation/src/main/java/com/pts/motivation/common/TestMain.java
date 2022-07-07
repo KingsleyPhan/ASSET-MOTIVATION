@@ -14,6 +14,9 @@ import java.io.OutputStream;
 import java.io.StringReader;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,27 +40,17 @@ import org.apache.http.impl.client.HttpClients;
 public class TestMain {
 	 public static void main(String args[]) {
 		  try {
-			  
-			  HttpGet httpGet = new HttpGet("http://localhost:8080/Motivation/exportDiChuyenNoiBo?lenh=202107200027929");
-			  HttpClient client = HttpClients.createDefault();
-			  HttpResponse httpResponse = client.execute(httpGet);
-			   
-			   
-			 String content = IOUtils.toString(httpResponse.getEntity().getContent(), "UTF-8");
-			  
-			 ConverterProperties converterProperties = new ConverterProperties();
-
-			 FontProvider fontProvider  = new FontProvider();
-			 fontProvider.addFont("font-times-new-roman.ttf");
-			 fontProvider.addStandardPdfFonts();
-			 fontProvider.addSystemFonts(); //for fallback
-			 converterProperties.setFontProvider(fontProvider);
+				String dateAsString = "29/11/2021"  ;
+				int nbMonths = 4;
+			  String format = "dd/MM/yyyy" ;
+		        SimpleDateFormat sdf = new SimpleDateFormat(format) ;
+		        Date dateAsObj = sdf.parse(dateAsString) ;
+		        Calendar cal = Calendar.getInstance();
+		        cal.setTime(dateAsObj);
+		        cal.add(Calendar.MONTH, nbMonths);
+		        Date dateAsObjAfterAMonth = cal.getTime() ;
+		    System.out.println(sdf.format(dateAsObjAfterAMonth));
 			 
-			 
-			  //HtmlConverter.convertToPdf(new FileInputStream("20210814.html"), new FileOutputStream("string-to-pdf.pdf"));
-			  HtmlConverter.convertToPdf(content, new FileOutputStream("string-to-pdf.pdf"), converterProperties);
-
-		     System.out.println( "PDF Created!" );
 		  } catch (Exception e) {
 			// TODO: handle exception
 		}

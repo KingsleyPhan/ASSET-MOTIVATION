@@ -7,18 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pts.motivation.common.DatabaseConnection;
-import com.pts.motivation.model.ASSETDICHUYENNOIBO;
+
 import com.pts.motivation.model.AssetMoveObjectDetail;
 import com.pts.motivation.model.DEPARTMENT_S;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
+
 
 public class UpdateDonViTaiSanLenhDiChuyenNoiBoDao {
-	private ASSETDICHUYENNOIBO form1;
+	private AssetMoveObjectDetail form1;
 	private AssetMoveObjectDetail form2;
 	
-	public UpdateDonViTaiSanLenhDiChuyenNoiBoDao(ASSETDICHUYENNOIBO form) {
-		this.form1 = form;
-	}
+	
 	
 	public UpdateDonViTaiSanLenhDiChuyenNoiBoDao(AssetMoveObjectDetail form) {
 		this.form2 = form;

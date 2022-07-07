@@ -7,20 +7,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 
-import com.aspose.email.HtmlLoadOptions;
 import com.pts.motivation.common.GetMap;
 import com.pts.motivation.common.SessionParams;
 import com.pts.motivation.common.UtilCommon;
-import com.pts.motivation.dao.SelectDepartmentDao;
-import com.pts.motivation.dao.SelectDiChuyenNoiBoDao;
 import com.pts.motivation.dao.SelectTaiSanDao;
-import com.pts.motivation.dao.UpdateDeleteLenhDiChuyenNoiBoDao;
 import com.pts.motivation.form.DiChuyenNoiBoForm;
 import com.pts.motivation.form.TaiSanDiChuyenNoiBoForm;
 import com.pts.motivation.form.TaoLenhDiChuyenNoiBoForm;
 import com.pts.motivation.model.ASSET;
 import com.pts.motivation.model.DEPARTMENT_S;
-import com.pts.motivation.model.LENHDICHUYENNOIBO;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -47,15 +42,7 @@ public class SearchTaiSanDiChuyenNoiBoController {
 			TaiSanDiChuyenNoiBoForm TaiSanDiChuyenNoiBoForm  = new TaiSanDiChuyenNoiBoForm();
 			model.addAttribute("TaiSanDiChuyenNoiBoForm", TaiSanDiChuyenNoiBoForm);
 		}
-		
-		SelectDepartmentDao ex = new SelectDepartmentDao((String) request.getSession().getAttribute(SessionParams.SESSION_CMPN_CD));
-		try {
-			List<DEPARTMENT_S> LISTDEPT = ex.excute();
-			model.addAttribute("lstDept", new GetMap().getMapDepartment(LISTDEPT));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		String deptCd = request.getParameter("dept");
 		mv.addObject("deptCd", deptCd);
 		ASSET assCheck = new ASSET();
@@ -111,15 +98,7 @@ public class SearchTaiSanDiChuyenNoiBoController {
 	@RequestMapping(params="search", method = RequestMethod.POST)
 	public ModelAndView search(HttpServletRequest request, Model model, @ModelAttribute("TaiSanDiChuyenNoiBoForm") TaiSanDiChuyenNoiBoForm form, BindingResult result) {
 		ModelAndView mv  = new ModelAndView();
-		SelectDepartmentDao ex = new SelectDepartmentDao((String) request.getSession().getAttribute(SessionParams.SESSION_CMPN_CD));
-		try {
-			List<DEPARTMENT_S> LISTDEPT = ex.excute();
-			model.addAttribute("lstDept", new GetMap().getMapDepartment(LISTDEPT));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 		String deptCd = request.getParameter("dept");
 		mv.addObject("deptCd", deptCd);
 		ASSET assCheck = new ASSET();
@@ -177,64 +156,7 @@ public class SearchTaiSanDiChuyenNoiBoController {
 		return mv;
 	}
 	
-	@RequestMapping(params="delete", method = RequestMethod.POST)
-	public ModelAndView delete(HttpServletRequest request, Model model, @ModelAttribute("DiChuyenNoiBoForm") DiChuyenNoiBoForm form, BindingResult result) {
-		ModelAndView mv  = new ModelAndView();
-
-		SelectDepartmentDao ex = new SelectDepartmentDao((String) request.getSession().getAttribute(SessionParams.SESSION_CMPN_CD));
-		try {
-			List<DEPARTMENT_S> LISTDEPT = ex.excute();
-			model.addAttribute("lstDept", new GetMap().getMapDepartment(LISTDEPT));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		LENHDICHUYENNOIBO lenhDel = new LENHDICHUYENNOIBO();
-		lenhDel.setId(request.getParameter("couponId"));
-		UpdateDeleteLenhDiChuyenNoiBoDao exDelete = new UpdateDeleteLenhDiChuyenNoiBoDao(lenhDel);
-		try {
-			exDelete.excute();
-			UtilCommon.showMessageNotification(mv, "XOÁ THÀNH CÔNG LỆNH ĐIỀU ĐỘNG");
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			UtilCommon.showMessageError(mv, "LỖI XOÁ LỆNH ĐIỀU ĐỘNG");
-		}
-		
-		
-		LENHDICHUYENNOIBO lenh = new LENHDICHUYENNOIBO();
-		lenh.setCmpnCd((String) request.getSession().getAttribute(SessionParams.SESSION_CMPN_CD));
-		lenh.setDeptIn(form.getDeptIn());
-		lenh.setDeptOut(form.getDeptOut());
-		lenh.setDeptOut(form.getDeptOut());
-		lenh.setDateStart(form.getDateOut());
-		lenh.setNoNumber(form.getSticker());
-		if("ALL".equals(form.getStatus())) {
-			lenh.setStatus(null);
-		} else {
-			lenh.setStatus(form.getStatus());
-		}
-		
-		
-		SelectDiChuyenNoiBoDao selectEx = new SelectDiChuyenNoiBoDao(lenh);
-		try {
-			List<LENHDICHUYENNOIBO> lst = selectEx.excute();
-			if(lst.size() == 0) {
-				UtilCommon.showMessageNotification(mv, "KHÔNG TÌM THẤY LỆNH NÀO");
-			} else {
-				UtilCommon.showMessageNotification(mv, "TÌM THẤY "+ lst.size() + " PHÙ HỢP");
-				mv.addObject("lst",lst);
-			}
-			System.out.println(lst.size());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		mv.setViewName("DiChuyenNoiBo");
-		return mv;
-	}
+	
 	
 	
 	@RequestMapping(params="TaoLenh", method = RequestMethod.POST)

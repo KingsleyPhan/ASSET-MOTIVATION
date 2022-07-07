@@ -152,7 +152,7 @@
       
     </div>
 	<div class="text-right" style="width: 100%; display: inline-block; margin-top: 10px;  background-color: rgb(148, 150, 151);">
-         <a class="btn btnAction" href="/DieuDongTaiSan">QUAY LẠI</a>
+         <a class="btn btnAction" href="DieuDongTaiSan">QUAY LẠI</a>
         <button class="btn btnAction" type="button" data-toggle="modal" data-target="#exampleModal" name="create">TẠO</button>
         <button class="btn btnAction" type="submit" name="search">TÌM KIẾM</button>
        
@@ -199,6 +199,8 @@
 					<c:if test="${elm.getStatus().trim() != 'NEW'}">
 						<form action="ChoMuonTrongHeThong" method="POST">
 							<input type="text" style="display:none;" name="id" value="${elm.getId()}"/>
+							<input type="text" style="display:none;" name="backurl" value="ChoMuonTrongHeThong"/>
+							
 							<button type="submit" class="btn-table-action" name="view">XEM</button>
 						</form>
 					</c:if>
@@ -248,11 +250,13 @@
 					</c:if>
 				</td>
 				<td style="text-align: center">
-					<c:if test="${elm.getStatus().trim() == 'NEW'}">
-						<form action="ChoMuonTrongHeThong" method="POST">
-							<input type="text" style="display:none;" name="id" value="${elm.getId()}"/>
-							<button type="submit" class="btn-table-action" name="edit">SỬA - XÓA</button>
-						</form>
+					<c:if test="${elm.getUserCreate() != 'SYSTEM'}">
+						<c:if test="${elm.getStatus().trim() == 'NEW'}">
+							<form action="ChoMuonTrongHeThong" method="POST">
+								<input type="text" style="display:none;" name="id" value="${elm.getId()}"/>
+								<button type="submit" class="btn-table-action" name="edit">SỬA - XÓA</button>
+							</form>
+						</c:if>
 					</c:if>
 				</td>
 			</tr>
@@ -273,8 +277,12 @@
       </div>
       <div class="modal-body">
       	<form action="ChoMuonTrongHeThong" method="POST">
-      	<button type="submit" name="create" class="btn btn-primary">CHO MƯỢN TRONG HỆ THỐNG</button>
-      	<button type="submit" name="LenhDiChuyenNoiBo" class="btn btn-primary">DI CHUYỂN NỘI BỘ</button>
+      	<button type="submit" name="create" class="btn btn-primary">CHO MƯỢN TRONG HỆ THỐNG</button><br>
+      	<button type="submit" style="margin-top:10px" name="LenhDiChuyenNoiBo" class="btn btn-primary">DI CHUYỂN NỘI BỘ</button><br>
+      	<button type="submit" style="margin-top:10px" name=TraTaiSanMuon class="btn btn-primary">TRẢ TÀI SẢN MƯỢN</button><br>
+      	<button type="submit" style="margin-top:10px" name=ThueTaiSan class="btn btn-primary">THUÊ TÀI SẢN TRONG HỆ THỐNG</button>
+      	<button type="submit" style="margin-top:10px" name=TraThueTaiSan class="btn btn-primary"> TRẢ THUÊ TÀI SẢN TRONG HỆ THỐNG</button>
+      	<button type="submit" style="margin-top:10px" name=BanGiaoTaiSan class="btn btn-primary">BÀN GIAO TÀI SẢN</button>
       	
       	</form>
       </div>

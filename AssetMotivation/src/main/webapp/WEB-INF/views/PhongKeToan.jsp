@@ -241,8 +241,10 @@
     
     <div class="text-right" style="width: 100%; display: inline-block; background-color: rgb(148, 150, 151);">
      <a class="btn btnAction" href="ChoMuonTrongHeThong"  type="button" name="back">TRỞ VỀ</a>
+      <button class="btn btnAction"  type="submit" name="export">XUẤT LỆNH</button>
         <button class="btn btnAction" type="submit" name="disApprove">KHÔNG DUYỆT</button>
         <button class="btn btnAction" type="submit" name="approve">DUYỆT</button>
+        
        
     </div>
 <!--     <span style="font-weight: 700; float:left;line-height: 35px;">Số lượng dòng: </span> -->
@@ -257,6 +259,7 @@
                     <th class="cel-bor-top-black">MÃ RFID</th>
                     <th class="cel-bor-top-black">MODEL</th>
                     <th class="cel-bor-top-black">SERIES</th>
+                     <th class="cel-bor-top-black">KỂ TOÁN</th>
                     <th class="cel-bor-top-black">TÊN TÀI SẢN</th>
                     <th class="cel-bor-top-black">PHỤ TÙNG KÈM THEO</th>
                 </tr>
@@ -278,6 +281,9 @@
                     </td>
                     <td>
                     	 <input type="text" readonly="true" name="series_<%=stt%>" value="${elm.getSeries() }" id="series_<%=stt%>" value="${elm.getSeries() }" class="form-control input-table-data">
+                    </td>
+                    <td>
+                    	 <input type="text" readonly="true" name="accountCd_<%=stt%>" value="${elm.getAccountCd() }" id="accountCd_<%=stt%>" value="${elm.getAccountCd() }" class="form-control input-table-data">
                     </td>
                     <td>
                     	 <input type="text" readonly="true" name="name_<%=stt%>" id="name_<%=stt%>" value="${elm.getName() }" class="form-control input-table-data">
