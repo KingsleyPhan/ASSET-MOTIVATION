@@ -37,6 +37,8 @@ public class ExcelMotivationAccountReportView extends AbstractXlsView {
   header.createCell(7).setCellValue("ĐƠN VỊ XUẤT");
   header.createCell(8).setCellValue("ĐƠN VỊ NHẬP");
   header.createCell(9).setCellValue("NGÀY KẾT THÚC");
+  header.createCell(10).setCellValue("TRẠNG THÁI");
+  header.createCell(11).setCellValue("MÃ KẾ TOÁN DUYỆT");
   									
 
   int rowNum = 3;
@@ -59,6 +61,31 @@ public class ExcelMotivationAccountReportView extends AbstractXlsView {
 	   row.createCell(7).setCellValue(item.getDeptOutName());
 	   row.createCell(8).setCellValue(item.getDeptInName());
 	   row.createCell(9).setCellValue(item.getDateIn());
+	   if("DA_TRA".equals(item.getStatus())) {
+		   row.createCell(10).setCellValue("ĐÃ TRÃ");
+	   }
+	   if("OK".equals(item.getStatus())) {
+		   row.createCell(10).setCellValue("ĐÃ ĐIỀU ĐỘNG");
+	   }
+	   if("PCD".equals(item.getStatus())) {
+		   row.createCell(10).setCellValue("CHỜ PKT DUYỆT");
+	   }
+	   if("KT".equals(item.getStatus())) {
+		   row.createCell(10).setCellValue("CHỜ PKV DUYỆT");
+	   }
+	   if("NOT_PCD".equals(item.getStatus())) {
+		   row.createCell(10).setCellValue("PCD KHÔNG DUYỆT");
+	   }
+	   if("NOT_KT".equals(item.getStatus())) {
+		   row.createCell(10).setCellValue("KT KHÔNG DUYỆT");
+	   }
+	   if("NOT_KV".equals(item.getStatus())) {
+		   row.createCell(10).setCellValue("KV KHÔNG DUYỆT");
+	   }
+	   if("NEW".equals(item.getStatus())) {
+		   row.createCell(10).setCellValue("MỚI");
+	   }  
+	   row.createCell(11).setCellValue(item.getCommentAccount());
    }
   
  

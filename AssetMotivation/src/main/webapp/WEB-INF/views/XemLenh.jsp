@@ -72,6 +72,52 @@
         .alert-danger, .alert-success {
         	text-align: center;
         }
+         .table_attackment {
+        	width: 100%;
+        	margrin-bottom: 10px;
+        }
+        .table_attackment tr th, .table_attackment tr td {
+   			border: 1px solid black;     
+   			padding: 10px;
+        }
+        .table_attackment tr th {
+   			background-color: lightgray;
+   			text-align: center;
+        }
+        .btn-upload {
+			width: 120px; 
+			color: white; 
+			background-color: green; 
+			margin: auto;
+        }
+        .btn-delete {
+			width: 120px; 
+			color: white; 
+			background-color: red; 
+			margin: auto;
+        }
+        .loader {
+		  border: 16px solid #f3f3f3;
+		  border-radius: 50%;
+		  border-top: 16px solid #3498db;
+		  width: 120px;
+		  height: 120px;
+		  -webkit-animation: spin 2s linear infinite; /* Safari */
+		  animation: spin 2s linear infinite;
+		  position: absolute;
+		  top: 45%;
+		  left: 45%;
+		}
+		.linkView {
+			text-decoration: none; 
+			color: white; 
+			background-color: green;
+			width: 80px;
+			text-align: center;
+			padding: 10px 20px;
+			cursor: pointer;
+			
+		}
   </style>
 </head>
 <body>
@@ -225,6 +271,39 @@
             </div>
         </div>
         </div>
+        <div class="tittle_part">FILE ĐÍNH KÈM</div>
+        <c:if test="${attachment.size() > 0}">
+    <table class="table_attackment">
+    	<thead>
+    		<tr>
+    			<th style="width: 50px">STT</th>
+    			<th>Ngày Thêm</th>
+    			<th>Upload</th>
+    			<th>File đính kèm</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<%
+    			int stt_at = 0;
+    		%>
+    		<c:forEach items="${attachment}" var="elmAt">
+    		<tr>
+    			<td><%=++stt_at%></td>
+    			<td>${elmAt.getInsertDt()}</td>
+    			<td>${elmAt.getFileName()}</td>
+    			<td>
+    			<center>
+    			<a target="_blank" class="linkView" href="${elmAt.getDownloadUrl()}">
+    				Xem
+    				</a>
+    			</center>
+    				
+    			</td>
+    		</tr>
+    		</c:forEach>
+    	</tbody>
+    </table>
+    </c:if>
         </c:if>
         <c:if test="${moveObject.userAccount != null}">
          <div class="tittle_part">KẾ TOÁN XÁC NHẬN</div>

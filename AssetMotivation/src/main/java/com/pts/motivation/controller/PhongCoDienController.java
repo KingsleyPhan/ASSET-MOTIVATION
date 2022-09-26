@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -38,6 +39,7 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.layout.font.FontProvider;
 import com.pts.motivation.common.SessionParams;
 import com.pts.motivation.common.UtilCommon;
+import com.pts.motivation.dao.CouponAttachmentSelectDao;
 import com.pts.motivation.dao.MoveDetailUpdateDao;
 import com.pts.motivation.dao.MoveObjectCountDao;
 import com.pts.motivation.dao.MoveObjectDetailInsertDao;
@@ -50,6 +52,7 @@ import com.pts.motivation.dao.SelectTaiSanDao;
 import com.pts.motivation.form.TaoLenhDiChuyenNoiBoForm;
 import com.pts.motivation.model.ASSET;
 import com.pts.motivation.model.AssetMoveObjectDetail;
+import com.pts.motivation.model.CouponAttachmentFile;
 import com.pts.motivation.model.MoveObject;
 
 @Controller
@@ -99,7 +102,19 @@ public class PhongCoDienController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String uri = request.getScheme() + "://" +   
+	             request.getServerName() +       
+	             ":" + request.getServerPort() + "/Motivation/UploadAttachmentFile?FileName=";
+		CouponAttachmentSelectDao selectAttach = new CouponAttachmentSelectDao(id, uri);
+		List<CouponAttachmentFile> lst = new ArrayList<>();
+		try {
+			lst = selectAttach.excute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		mv.addObject("attachment", lst);
 		
 		mv.addObject("numberRow", numberRow);
 		mv.setViewName("PhongCoDien");
@@ -270,7 +285,7 @@ public class PhongCoDienController {
 		ModelAndView mv = new ModelAndView();
 		
 		
-	    String path=request.getSession().getServletContext().getRealPath("/");  
+	    String path= "C://AMS_ATTACHMENT_FILE";
         String filename=congvandieudong.getOriginalFilename();  
           
         System.out.println(path+" "+filename);  

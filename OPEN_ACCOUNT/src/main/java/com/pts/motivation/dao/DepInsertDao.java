@@ -1,0 +1,57 @@
+package com.pts.motivation.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.pts.motivation.common.DatabaseConnection;
+import com.pts.motivation.model.Department;
+
+public class DepInsertDao {
+	Department form =new Department();
+	public DepInsertDao(Department form)
+	{
+		this.form = form;
+	}
+	
+	public int excute() throws SQLException
+	{
+		int result = 0;
+		
+		DatabaseConnection conn = new DatabaseConnection();
+		Connection connectString = conn.getConnection();
+		PreparedStatement sqlStatement = connectString.prepareStatement(getSql());
+		//System.out.println(getSql());
+			sqlStatement.setString(1,form.getDept_cd());//COMPANY_CD
+			sqlStatement.setString(2,form.getCompany_cd());//COMPANY_NAME
+			sqlStatement.setString(3,form.getDept_name());//COMPANY_ADDRESS
+			sqlStatement.setString(4,form.getDept_desciption());//COMPANY_ADDRESS
+			result = sqlStatement.executeUpdate();
+		
+		
+		return result;
+	}
+	
+	public String getSql()
+	{
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" INSERT INTO");
+		sql.append(" DEPRATMENT ");
+		sql.append(" (");
+		sql.append(" 	DEPT_CD");
+		sql.append(" 	,CMPN_CD");
+		sql.append(" 	,DEPARTMENT_NAME");
+		sql.append(" 	,DESCRIPTION");
+		sql.append(" )");
+		sql.append(" VALUES");
+		sql.append(" (");
+		sql.append(" 	 ?");//DEPT_CD
+		sql.append(" 	,?");//CMPN_CD
+		sql.append(" 	,?");//DEPARTMENT_NAME
+		sql.append(" 	,?");//DESCRIPTION
+		sql.append(" )");
+		
+		return sql.toString();
+	}
+}

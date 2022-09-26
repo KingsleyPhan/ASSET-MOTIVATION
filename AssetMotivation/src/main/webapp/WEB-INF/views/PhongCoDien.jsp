@@ -45,7 +45,7 @@
             text-transform: uppercase;
             /* float: right; */
             margin-left: 10px;
-            width: 142px;
+            width: 160px;
             border-radius: 0px;
             font-weight: 700;
             float: right;
@@ -83,9 +83,79 @@
         .alert-danger, .alert-success {
         	text-align: center;
         }
+        .table_attackment {
+        	width: 100%;
+        	margrin-bottom: 10px;
+        }
+        .table_attackment tr th, .table_attackment tr td {
+   			border: 1px solid black;     
+   			height: 15px;
+        }
+        .table_attackment tr th {
+   			background-color: lightgray;
+   			text-align: center;
+        }
+        .btn-upload {
+			width: 120px; 
+			color: white; 
+			background-color: green; 
+			margin: auto;
+        }
+        .btn-delete {
+			width: 120px; 
+			color: white; 
+			background-color: red; 
+			margin: auto;
+        }
+        .loader {
+		  border: 16px solid #f3f3f3;
+		  border-radius: 50%;
+		  border-top: 16px solid #3498db;
+		  width: 120px;
+		  height: 120px;
+		  -webkit-animation: spin 2s linear infinite; /* Safari */
+		  animation: spin 2s linear infinite;
+		  position: absolute;
+		  top: 45%;
+		  left: 45%;
+		}
+		.linkView {
+			text-decoration: none; 
+			color: white; 
+			background-color: green;
+			width: 80px;
+			text-align: center;
+			padding: 10px 20px;
+			cursor: pointer;
+			
+		}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.frameLoader {
+	position:absolute;
+	width: 100%; 
+	height: 100%; 
+	background-color: rgba(151, 175, 197, 0.6); 
+	z-index:999;
+	 background-attachment: fixed;
+	
+}
   </style>
 </head>
-<body>
+<bodyn>
+<div class="frameLoader" id="idxScroll" style="display:none;">
+	<div class="loader"></div>
+</div>
 	<table style="width:100%; height:40px; background-color: #005BB5">
 		<tr>
 			<td  style="width:50%; color: white; font-weight: 700">
@@ -101,6 +171,7 @@
     <%@include file="message.jsp" %>
 	<div style="width: 100%; padding: 10px;">
     <div class="tittle_part">QUẢN LÝ LỆNH</div>
+    <input type="text" id="userSession" style="display:none" value="<%=request.getSession().getAttribute("SESSION_USER_CD")%>"/>
     <div class="row">
         <div class="col-sm-4">
             <div class="form-group">
@@ -233,11 +304,54 @@
         </div> -->
 
     </div>
+    <div class="tittle_part">FILE ĐÍNH KÈM</div>
+    <table class="table_attackment">
+    	<thead>
+    		<tr>
+    			<th style="width: 50px">STT</th>
+    			<th>Ngày Thêm</th>
+    			<th>Upload</th>
+    			<th>File đính kèm</th>
+    			<th style="width: 120px;">Thao tác</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<%
+    			int stt_at = 0;
+    		%>
+    		<c:forEach items="${attachment}" var="elmAt">
+    		<tr>
+    			<td><%=++stt_at%></td>
+    			<td>${elmAt.getInsertDt()}</td>
+    			<td>${elmAt.getFileName()}</td>
+    			<td>
+    			<center>
+    			<a target="_blank" class="linkView" href="${elmAt.getDownloadUrl()}">
+    				Xem
+    				</a>
+    			</center>
+    				
+    			</td>
+    			<td><button type="button" onclick="DeleteFile('${elmAt.getId()}')" class="btn btn-delete">XÓA</button></td>
+    		</tr>
+    		</c:forEach>
+    		<tr>
+    			<td><%=++stt_at%></td>
+    			<td></td>
+    			<td><input type="file"/></td>
+    			<td></td>
+    			<td><button type="button" onclick="UploadFile()" class="btn btn-upload">UPLOAD</button></td>
+    		</tr>
+    	</tbody>
+    </table>
+    
+   
+    
     <form:input path="status" style="display:none" type="text" class="form-control"/>
     <form:input path="deleteFg" style="display:none" type="text" class="form-control"/>
     <form:input path="cmpnCd" style="display:none" type="text" class="form-control"/>
     
-    <div class="text-right" style="width: 100%; display: inline-block; background-color: rgb(148, 150, 151);">
+    <div class="text-right" style="width: 100%; display: inline-block; background-color: rgb(148, 150, 151); margin-top: 10px;">
      <a class="btn btnAction" href="ChoMuonTrongHeThong"  type="button" name="back">TRỞ VỀ</a>
       <button class="btn btnAction"  type="submit" name="export">XUẤT LỆNH</button>
         <button class="btn btnAction" type="submit" name="disApprove">KHÔNG DUYỆT</button>
@@ -310,6 +424,79 @@
 
 </script>
 <script type="text/javascript">
+
+		function DeleteFile(id) {
+			 window.scrollTo(0, 0);
+			 window.onscroll = function () { window.scrollTo(0, 0); }; 
+			 document.getElementById("idxScroll").style.display='';
+			var input = document.querySelector('input[type="file"]')
+
+			var data = new FormData()
+			data.append('file', input.files[0])
+			data.append('action', 'D')
+			data.append('couponCd', document.getElementById('id').value)
+			data.append('userCd', document.getElementById('userSession').value)
+			data.append('attachId', id)
+			
+			fetch('UploadAttachmentFile', {
+				  method: 'POST',
+				  body: data
+				})           //api for the get request
+			  .then(response => {
+				  response.json();
+				  location.reload();
+				 // window.onscroll= null;
+				 // document.getElementById("idxScroll").style.display='none';
+			  }
+						  
+						 
+			).then((dataRes) => {
+				  console.log(dataRes)
+				  
+				    	location.reload();
+				    
+			
+			  }  );
+			
+		}
+
+		function UploadFile() {
+			 window.scrollTo(0, 0);
+			 window.onscroll = function () { window.scrollTo(0, 0); }; 
+			 document.getElementById("idxScroll").style.display='';
+			var input = document.querySelector('input[type="file"]')
+
+			var data = new FormData()
+			data.append('file', input.files[0])
+			data.append('action', 'U')
+			data.append('couponCd', document.getElementById('id').value)
+			data.append('userCd', document.getElementById('userSession').value)
+			data.append('attachId', "")
+			
+			fetch('UploadAttachmentFile', {
+				  method: 'POST',
+				  body: data
+				})           //api for the get request
+			  .then(response=> {
+				  response.json()
+				  window.onscroll= null;
+				  document.getElementById("idxScroll").style.display='none';
+			  }
+						  
+						 
+			).then((dataRes) => {
+				  console.log(dataRes)
+				  
+				    	location.reload();
+				    
+			
+			  }  );
+		}
+			  
+			
+
+		
+
         function UpdateFields (text1,text2,text3,text4, param1, param2, param3, param4) {
         	// var text1 = document.getElementById (param1);
            //  var text2 = document.getElementById (param2);

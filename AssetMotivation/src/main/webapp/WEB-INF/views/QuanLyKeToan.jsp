@@ -165,6 +165,8 @@
                     <th   class="cel-bor-top-black">ĐƠN VỊ XUẤT</th>
                     <th   class="cel-bor-top-black">ĐƠN VỊ NHẬP</th>                   
                     <th   class="cel-bor-top-black">NGÀY KẾT THÚC</th>
+                    <th   class="cel-bor-top-black">TRẠNG THÁI</th>
+                    <th   class="cel-bor-top-black">MÃ DUYỆT KT</th>
                 </tr>
             </thead>
             <tbody>
@@ -197,13 +199,51 @@
 		                    <td  style="text-align: center">${elm.deptOutName}</td>
 		                     <td  style="text-align: center">${elm.deptInName}</td>
 		                    <td  style="text-align: center">${elm.dateIn}</td>
-<!-- 		                    <td  style="text-align: center"> -->
-<%-- 		                    <form action="ChoMuonTrongHeThong" method="POST"> --%>
-<%-- 								<input type="text" style="display:none;" name="id" value="${elm.getId()}"/> --%>
-<!-- 								<input type="text" style="display:none;" name="backurl" value="DieuDongTaiSan"/> -->
-<!-- 								<button type="submit" style="background-color: yellow; border-radius: 0px; border: 1px solid black; font-weight: 700; color: black;" class="btn-table-action" name="view">XEM</button> -->
-<%-- 							</form> --%>
-<!-- 		                    </td> -->
+							<td>
+							<c:choose>   
+						         <c:when test = "${elm.status == 'DA_TRA'}">
+						         <div style="width: 130px;">
+						            ĐÃ TRẢ
+						         </c:when>    
+						           <c:when test = "${elm.status == 'OK'}">
+						           <div style="width: 130px; background-color: green; color: white; text-align: center; padding: 3px;">
+						            ĐÃ ĐIỀU ĐỘNG
+						         </c:when>  
+						          <c:when test = "${elm.status == 'PCD'}">
+						          <div style="width: 130px; background-color: orange; color: white; text-align: center; padding: 3px;">
+						          
+						            CHỜ PKT DUYỆT
+						         </c:when>  
+						          <c:when test = "${elm.status == 'KT'}">
+						         <div style="width: 130px; background-color: yellow; color: black; text-align: center; padding: 3px;">
+						          
+						            CHỜ PKV DUYỆT
+						         </c:when>  
+						          
+						          <c:when test = "${elm.status == 'NOT_PCD'}">
+						          <div style="width: 130px; background-color: brown; color: white; text-align: center; padding: 3px;">
+						          
+						             PCD K DUYỆT
+						         </c:when>  
+						          <c:when test = "${elm.status == 'NOT_KT'}">
+						         <div style="width: 130px; background-color: burlyWood; color: white; text-align: center; padding: 3px;">
+						          
+						             PKT K DUYỆT
+						         </c:when>  
+						          <c:when test = "${elm.status == 'NOT_KV'}">
+						          <div style="width: 130px; background-color: coral; color: white; text-align: center; padding: 3px;">
+						          
+						             PKV K DUYỆT
+						         </c:when>    
+						         <c:otherwise>
+						        <div style="width: 130px; background-color: indigo; color: white; text-align: center; padding: 3px;">
+						         
+						           ${elm.status}
+						         </c:otherwise>
+					    	</c:choose>		   
+					    	</div>
+							</td>
+							<td>${elm.getCommentAccount()}</td>
 		                </tr>
 		               
 	                 </c:forEach>
