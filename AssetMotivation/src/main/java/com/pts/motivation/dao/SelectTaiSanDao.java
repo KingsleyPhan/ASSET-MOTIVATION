@@ -61,7 +61,7 @@ public class SelectTaiSanDao {
 			sql.append(" 	WHERE DELETE_FG = '0'  ");
 			if(asset != null) {
 				if(UtilCommon.isNotEmpty(asset.getDeptCd())) {
-					sql.append(" AND ASSET_DEPARTMENT =  ").append("'" + asset.getDeptCd()+"'");
+					//sql.append(" AND ASSET_DEPARTMENT =  ").append("'" + asset.getDeptCd()+"'");
 				}
 				if(UtilCommon.isNotEmpty(asset.getRfid())) {
 					sql.append(" AND ASSET_RFID =  ").append("'" + asset.getRfid()+"'");

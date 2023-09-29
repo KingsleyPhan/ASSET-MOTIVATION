@@ -89,7 +89,7 @@ p {
 <body style="margin: 0px">
 	<table style="width: 100%">
 		<tr>
-			<th style="width: 50%"><p>TỔNG CÔNG TY CỔ PHẦN MAY VIỆT TIẾN</p>
+			<th style="width: 50%"><p>TỔNG CÔNG TY CỔ PHẦN MAY CÔNG TIẾN</p>
 			<c:if test="${moveObject.code != ''}">
 				<p style="font-weight: 300">Số: ${moveObject.no}/${moveObject.code}/CĐ</p></th>
 			</c:if>

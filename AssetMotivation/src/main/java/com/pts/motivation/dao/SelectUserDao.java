@@ -1,5 +1,6 @@
 package com.pts.motivation.dao;
 
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class SelectUserDao {
 		this.user = user;
 	}
 	
-	public List<USER> excute() throws SQLException {
+	public List<USER> excute() throws SQLException, UnknownHostException {
 		List<USER> lst = new ArrayList<USER>();
 		DatabaseConnection conn = new  DatabaseConnection();
 		Connection connEx = conn.getConnection();

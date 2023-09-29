@@ -1,5 +1,6 @@
 package com.pts.motivation.dao;
 
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class CompanyInsertDao {
 		this.form = form;
 	}
 	
-	public int excute() throws SQLException
+	public int excute() throws SQLException, UnknownHostException
 	{
 		int result = 0;
 		

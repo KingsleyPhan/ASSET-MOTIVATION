@@ -85,7 +85,7 @@ p {
 <body>
 	<table style="width: 100%">
 		<tr>
-			<th style="width: 50%"><p>TỔNG CÔNG TY CỔ PHẦN MAY VIỆT TIẾN</p>
+			<th style="width: 50%"><p>TỔNG CÔNG TY CỔ PHẦN MAY CÔNG TIẾN</p>
 				<p style="font-weight: 300">Số: 01/CĐ</p></th>
 			<th style="width: 50%; text-align: right;">
 				<p  style="font-weight: 300"> Mẩu số: 13/CĐ</p>

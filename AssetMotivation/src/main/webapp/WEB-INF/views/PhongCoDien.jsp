@@ -45,7 +45,7 @@
             text-transform: uppercase;
             /* float: right; */
             margin-left: 10px;
-            width: 160px;
+            width: 170px;
             border-radius: 0px;
             font-weight: 700;
             float: right;
@@ -465,7 +465,14 @@
 			 window.onscroll = function () { window.scrollTo(0, 0); }; 
 			 document.getElementById("idxScroll").style.display='';
 			var input = document.querySelector('input[type="file"]')
-
+			
+			if(input.files[0].name.indexOf("+") >= 0) {
+				alert("Vui lòng lượt bỏ dấu '+' hoặc '-'  trong tên file được tải lên");
+				 window.onscroll= null;
+				  document.getElementById("idxScroll").style.display='none';
+				return false;
+			}
+			
 			var data = new FormData()
 			data.append('file', input.files[0])
 			data.append('action', 'U')

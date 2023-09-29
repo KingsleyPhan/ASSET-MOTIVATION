@@ -31,7 +31,7 @@
             text-transform: uppercase;
             /* float: right; */
             margin-left: 10px;
-            width: 142px;
+            width: 170px;
             border-radius: 0px;
             font-weight: 700;
             float: right;
@@ -227,7 +227,7 @@
 					<c:if test="${elm.getStatus().trim() == 'NOT_KT'}">
 						<form action="ChoMuonTrongHeThong" method="POST">
 						<input type="text" style="display:none;" name="id" value="${elm.getId()}"/>
-						<button type="submit" name="KT">PKT K DUYỆT</button>
+						<button type="submit" name="PCD">PKT K DUYỆT</button>
 						</form>
 					</c:if>
 					<c:if test="${elm.getStatus().trim() == 'KT'}">

@@ -1,5 +1,6 @@
 package com.pts.motivation.controller;
 
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, params = "login")
-	public ModelAndView DangNhap(HttpServletRequest request) {
+	public ModelAndView DangNhap(HttpServletRequest request) throws UnknownHostException {
 		ModelAndView mv = new ModelAndView();
 		USER user = new USER(); 
 		user.setUsn(request.getParameter("usn"));

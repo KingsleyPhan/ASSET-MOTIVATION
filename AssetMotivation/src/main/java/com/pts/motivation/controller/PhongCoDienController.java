@@ -161,7 +161,7 @@ public class PhongCoDienController {
 		 String pad= "";
 		try {
 			  
-			  HttpGet httpGet = new HttpGet("http://asset.viettien.com.vn:8081/Motivation/XemLenhExport?lenh="+ moveObject.getId());
+			  HttpGet httpGet = new HttpGet("http://113.161.224.131:2713/Motivation/XemLenhExport?lenh="+ moveObject.getId());
 			  HttpClient client = HttpClients.createDefault();
 			  HttpResponse httpResponse = client.execute(httpGet);
 			   

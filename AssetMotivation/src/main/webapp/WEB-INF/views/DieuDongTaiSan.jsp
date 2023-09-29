@@ -60,7 +60,7 @@
             text-transform: uppercase;
             /* float: right; */
             margin-left: 10px;
-            width: 142px;
+             width: 170px;
             border-radius: 0px;
             font-weight: 700;
             float: right;

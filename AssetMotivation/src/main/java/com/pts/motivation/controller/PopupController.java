@@ -1,5 +1,6 @@
 package com.pts.motivation.controller;
 
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,12 @@ public class PopupController {
 		
 		CompanyInsertDao insrt = new CompanyInsertDao(comn);
 		try {
-			insrt.excute();
+			try {
+				insrt.excute();
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			Department dept = new Department();
 			dept.setCompany_cd(comn.getCompany_cd());

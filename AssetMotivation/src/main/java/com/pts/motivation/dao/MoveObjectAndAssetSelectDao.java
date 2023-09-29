@@ -132,6 +132,7 @@ public class MoveObjectAndAssetSelectDao {
 					sql.append(" AND  MO.DEPT_OUT_ID =  ").append("'"+moveObject.getDeptOutId()+"'");
 				}
 			}
+			System.out.println(sql.toString());
 			return sql.toString();
 		}
 }
